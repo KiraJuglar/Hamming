@@ -1,4 +1,7 @@
 # depslib dependency file v1.0
-1646455337 source:d:\tareas\uni\7semestre\tolerante a fallas\actividades\actividad 6\hamming\hamming\main.cpp
+1646621989 source:d:\tareas\uni\7semestre\tolerante a fallas\actividades\actividad 6\hamming\hamming\main.cpp
 	<iostream>
+	<string>
+	<cstdlib>
+	<vector>
 
