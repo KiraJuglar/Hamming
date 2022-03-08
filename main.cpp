@@ -80,6 +80,43 @@ string removerEspacios (string value)
     return trama;
 }
 
+char []Hamming(string value){
+    //Calculamos la cantidad de bits de paridad
+    float exp = log2(value.length());
+    exp = floor(exp);
+    //Arreglo de bits de paridad
+    int paridad[(int(exp))];
+    //Arreglo de bits de paridad y bits de value
+    char nValue[(int(exp)) + value.length()];
+    //Inicializamos las posiciones de los bits de paridad en 0
+    for(int i = 0; i < exp; i++){
+        nValue[pow(2,i) - 1] = '0';
+    }
+    //Ingresamos value en el resto de posiciones
+    int aux = 0;
+    for(int i = 0; i < nValue.length(); i++){
+        if(nValue[i] != '0'){
+            nValue[i] = value[aux++];
+        }
+    }
+    //Se hace el calculo de los bits de paridad
+    for(int i = 0; i < exp; i++){
+        paridad[i] = 0;
+        for(int j = pow(2,i) - 1; j < nvalue.length(); j + pow(2,i) + 1){
+            for(int k = 0; k < j; k++){
+                paridad[i] += nvalue[j];
+            }
+        }
+    }
+    //Asignamos el valor de los bits de paridad
+    aux = 0;
+    for(int i = 0; i < exp; i++){
+        nValue[pow(2,i) - 1] = paridad[aux++] % 2;
+    }
+
+    return nValue;
+}
+
 int main()
 {
     string tramaS;
