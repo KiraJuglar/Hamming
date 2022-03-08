@@ -5,3 +5,10 @@
 	<cstdlib>
 	<vector>
 
+1646782124 source:c:\users\danie\desktop\dev\c++\hamming\main.cpp
+	<iostream>
+	<string>
+	<cstdlib>
+	<vector>
+	<math.h>
+
