@@ -2,6 +2,7 @@
 #include <string>
 #include <cstdlib>
 #include <vector>
+#include <math.h>
 
 using namespace std;
 
@@ -80,6 +81,48 @@ string removerEspacios (string value)
     return trama;
 }
 
+char *Hamming(string value){
+    //Calculamos la cantidad de bits de paridad
+    float exp = log2(value.length());
+    exp = floor(exp);
+
+    //Arreglo de bits de paridad
+    int paridad[(int(exp))];
+    //Arreglo de bits de paridad y bits de value
+    int s = (int(exp)) + value.length();
+    char nValue[s];
+    //Inicializamos las posiciones de los bits de paridad en 0
+    int potencia;
+    for(int i = 0; i < exp; i++){
+        potencia = pow(2,i) - 1;
+        nValue[potencia] = '0';
+    }
+
+    //Ingresamos value en el resto de posiciones
+    int aux = 0;
+    for(int i = 0; i < s; i++){
+        if(nValue[i] != '0'){
+            nValue[i] = value[aux++];
+        }
+    }
+
+    //Se hace el calculo de los bits de paridad
+    for(int i = 0; i < exp; i++){
+        paridad[i] = 0;
+        for(int j = pow(2,i) - 1; j < s; j += (pow(2,i) + 1)){
+            paridad[i] += (int(nValue[j])) - 48;
+        }
+    }
+    //Asignamos el valor de los bits de paridad
+    for(int i = 0; i < exp; i++){
+        potencia = pow(2,i) - 1;
+        nValue[potencia] = (paridad[i] % 2) + 48;
+    }
+
+
+    return nValue;
+}
+
 int main()
 {
     string tramaS;
@@ -125,10 +168,11 @@ int main()
         // Convierto cada tramo de 8 bits en un número
         cadena += (char)convertirBinario(data);
     }
-    // Salida
+    // Salidai
     cout<<"\n\t Palabra: "<<cadena<<endl;
 
+    char *aux;
 
-
+    aux = Hamming(tramaS);
     return 0;
 }
