@@ -91,6 +91,7 @@ void ArregloParidad(char nValue[], string value, int nParidad, int s){
         nValue[potencia] = '0';
     }
 
+
     //Ingresamos value en el resto de posiciones
     int aux = 0;
     for(int i = 0; i < s; i++){
@@ -169,14 +170,14 @@ int main()
 
 
     //Calculamos la cantidad de bits de paridad
-    float nParidad = tramaS.length()/7;
+    float nParidad = log2(tramaS.length());
     nParidad = ceil(nParidad);
-    nParidad *= 4;
+    nParidad = log2(tramaS.length() + nParidad);
+    nParidad = ceil(nParidad);
     //Tamaño del arreglo de bits información y paridad
     int s = nParidad + tramaS.length();
 
     char trama[s];
-
     ArregloParidad(trama, tramaS, nParidad, s);
 
     for(int i = 0; i < s; i++){
