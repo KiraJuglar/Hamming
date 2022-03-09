@@ -122,6 +122,52 @@ void ArregloParidad(char nValue[], string value, int nParidad, int s){
     return;
 }
 
+int VerificacionDeError(char tramaS[], char tramaE[], int s, int nParidad){
+    int paridadS[nParidad];
+    int paridadE[nParidad];
+    int arrayError[nParidad];
+    int posicionError = -1;
+    int potencia;
+    //Inicializamos las posiciones de los bits de paridad en 0
+    for(int i = 0; i < nParidad; i++){
+        potencia = pow(2,i) - 1;
+        tramaS[potencia] = '0';
+        tramaE[potencia] = '0';
+    }
+
+    for(int i = 0; i < nParidad; i++){
+        paridadS[i] = 0;
+        paridadE[i] = 0;
+        for(int j = pow(2,i) - 1; j < s; j += (pow(2,i))){
+            for(int k = 0; k < pow(2,i); k++)
+            {
+                if( j >= s)
+                    break;
+                paridadS[i] += (int(tramaS[j])) - 48;
+                paridadE[i] += (int(tramaE[j++])) - 48;
+            }
+        }
+    }
+
+    for(int i = 0; i < nParidad; i++){
+        paridadE[i] = paridadE[i]%2;
+        paridadS[i] = paridadS[i]%2;
+        if(paridadE[i] != paridadS[i]){
+            arrayError[i] = 1;
+        }
+        else{
+            arrayError[i] = 0;
+        }
+    }
+
+    for(int i = 0; i < nParidad; i++){
+        potencia = pow(2, i);
+        posicionError += (potencia * arrayError[i]);
+    }
+
+    return posicionError;
+}
+
 
 int main()
 {
