@@ -81,12 +81,12 @@ string removerEspacios (string value)
     return trama;
 }
 
-void Hamming(char nValue[], string value, int exp, int s){
+void ArregloParidad(char nValue[], string value, int nParidad, int s){
     //Arreglo de bits de paridad
-    int paridad[(int(exp))];
+    int paridad[nParidad];
     //Inicializamos las posiciones de los bits de paridad en 0
     int potencia;
-    for(int i = 0; i < exp; i++){
+    for(int i = 0; i < nParidad; i++){
         potencia = pow(2,i) - 1;
         nValue[potencia] = '0';
     }
@@ -98,16 +98,18 @@ void Hamming(char nValue[], string value, int exp, int s){
             nValue[i] = value[aux++];
         }
     }
-
     //Se hace el calculo de los bits de paridad
-    for(int i = 0; i < exp; i++){
+    for(int i = 0; i < nParidad; i++){
         paridad[i] = 0;
         for(int j = pow(2,i) - 1; j < s; j += (pow(2,i) + 1)){
-            paridad[i] += (int(nValue[j])) - 48;
+            for(int k = 0; k < pow(2,i); k++)
+            {
+                paridad[i] += (int(nValue[j])) - 48;
+            }
         }
     }
     //Asignamos el valor de los bits de paridad
-    for(int i = 0; i < exp; i++){
+    for(int i = 0; i < nParidad; i++){
         potencia = pow(2,i) - 1;
         nValue[potencia] = (paridad[i] % 2) + 48;
     }
@@ -115,6 +117,7 @@ void Hamming(char nValue[], string value, int exp, int s){
 
     return;
 }
+
 
 int main()
 {
@@ -166,15 +169,19 @@ int main()
 
 
     //Calculamos la cantidad de bits de paridad
-    float exp = log2(tramaS.length());
-    exp = floor(exp);
+    float nParidad = tramaS.length()/7;
+    nParidad = ceil(nParidad);
+    nParidad *= 4;
     //Tamaño del arreglo de bits información y paridad
-    int s = exp + tramaS.length();
+    int s = nParidad + tramaS.length();
 
-    char hamming[s];
+    char trama[s];
 
-    Hamming(hamming, tramaS, exp, s);
+    ArregloParidad(trama, tramaS, nParidad, s);
 
+    for(int i = 0; i < s; i++){
+        cout << trama[i] << '|';
+    }
     //Recibir la segunda palabra, hacer Hamming, compararla con el primer arreglo y resolver errores
     return 0;
 }
