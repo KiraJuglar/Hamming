@@ -102,10 +102,13 @@ void ArregloParidad(char nValue[], string value, int nParidad, int s){
     //Se hace el calculo de los bits de paridad
     for(int i = 0; i < nParidad; i++){
         paridad[i] = 0;
-        for(int j = pow(2,i) - 1; j < s; j += (pow(2,i) + 1)){
+        for(int j = pow(2,i) - 1; j < s; j += (pow(2,i))){
             for(int k = 0; k < pow(2,i); k++)
             {
-                paridad[i] += (int(nValue[j])) - 48;
+                if( j >= s)
+                    break;
+                paridad[i] += (int(nValue[j++])) - 48;
+
             }
         }
     }
