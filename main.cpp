@@ -81,16 +81,9 @@ string removerEspacios (string value)
     return trama;
 }
 
-char *Hamming(string value){
-    //Calculamos la cantidad de bits de paridad
-    float exp = log2(value.length());
-    exp = floor(exp);
-
+void Hamming(char nValue[], string value, int exp, int s){
     //Arreglo de bits de paridad
     int paridad[(int(exp))];
-    //Arreglo de bits de paridad y bits de value
-    int s = (int(exp)) + value.length();
-    char nValue[s];
     //Inicializamos las posiciones de los bits de paridad en 0
     int potencia;
     for(int i = 0; i < exp; i++){
@@ -120,7 +113,7 @@ char *Hamming(string value){
     }
 
 
-    return nValue;
+    return;
 }
 
 int main()
@@ -171,8 +164,17 @@ int main()
     // Salidai
     cout<<"\n\t Palabra: "<<cadena<<endl;
 
-    char *aux;
 
-    aux = Hamming(tramaS);
+    //Calculamos la cantidad de bits de paridad
+    float exp = log2(tramaS.length());
+    exp = floor(exp);
+    //Tamaño del arreglo de bits información y paridad
+    int s = exp + tramaS.length();
+
+    char hamming[s];
+
+    Hamming(hamming, tramaS, exp, s);
+
+    //Recibir la segunda palabra, hacer Hamming, compararla con el primer arreglo y resolver errores
     return 0;
 }
